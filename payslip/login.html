@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="payslip.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="payslipstyle.css">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div class="login-grid">
+            <div class="login-image">
+                <div class="login-img-container">
+                    <img src="image/loginLogo.gif" alt="login design image">
+                </div>
+            </div>
+            <div class="login-form">
+                <h1>Login</h1>
+                <form>
+                    <div class="loginusernamearea">
+                        <img src="image/mail.png" alt="icon symbol">
+                        <input type="text" title="Please enter the username" id="loginuser" class="login-user" placeholder="Enter your Name" required>
+                    </div>
+                    <div class="loginpasswordarea">
+                        <img src="image/Password.png" alt="icon symbol">
+                        <input type="password" class="login-password" id="loginpassword" placeholder="Password" required>
+                        <img src="image/hide.png" alt="icon symbol">
+                    </div>
+                    <a href="#">Forget Password?</a>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <script>
+        document.querySelector("form").addEventListener("submit", function(event) {
+    event.preventDefault();
+   const username = document.getElementById("loginuser").value;
+   const password = document.getElementById("loginpassword").value;
+    const logincred = [
+        {user: "admin" , pass:"admin"},
+        {user: "praveena" , pass:"praveena"},
+        {user: "chandru" , pass:"chandru"}
+    ]
+
+    if(logincred.find(cred => username === cred.user && password === cred.pass)){
+          window.location.href = "overview.html";
+          localStorage.setItem('activeuser', username);
+          localStorage.setItem('sessionstatus','login')
+          document.getElementById("loginuser").value = "";
+          document.getElementById("loginpassword").value = "";
+          
+   }else{
+        alert("Invalid username or password");
+        document.getElementById("loginuser").value = "";
+        document.getElementById("loginpassword").value = "";
+   }
+});
+    </script>
+    
+</body>
+</html>

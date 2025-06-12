@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="payslip.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="payslipstyle.css">
+    <title>Document</title>
+    <style>
+        #capture {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body id="payslip-page">
+    <div class="displaygrid">
+        <nav class="navbarr">
+            <div class="overview1 nav1">
+                <img src="image/overview.png" alt="" style="width: 18px;">
+                <a href="overview.html">Overview</a>
+            </div>
+            <div class="payroll1 nav1" >
+                <img src="image/payroll.png" alt="" >
+                <a href="payroll.html" >Payroll</a>
+            </div>
+            <div class="payslip1 nav1" id="active">
+                <img src="image/payroll.png" alt="">
+                <a href="payslip.html">Payslip</a>
+            </div> 
+            <div class="logoutarea1 nav1">
+                <img src="image/logout.png" alt="" style="width: 18px;">
+                <a href="login.html" onclick="logout()" id="logout-btn">Logout</a>
+            </div>
+        </nav>
+
+        <main class="payslip-page-area pagemainarea" id="contentarea">
+            <h1 class="payslippagehead">Payslip Details</h1>
+            <div class="payslipcontentarea" id="payslipcontentarea">
+                <div class="payslipbasicdetails">
+                    <h1 class="heading">Coding Hub Private Limited Company</h1>
+                    <div class="payslipbasicdetailsarea">
+                        <strong>Employee Name</strong><p>:</p><span id="name" style="text-transform: capitalize;"></span>
+                    </div>
+                    <div class="payslipbasicdetailsarea">
+                        <strong>Date</strong><p>:</p><span id="date"></span>
+                    </div>
+                    <div class="payslipbasicdetailsarea">
+                        <strong>Employee I'D</strong><p>:</p><span id="empid"></span>
+                    </div>
+                    <div class="payslipbasicdetailsarea">
+                        <strong>Payroll - Year & Month</strong><p>:</p><span id="month"></span>
+                    </div>
+                    <div class="payslipbasicdetailsarea">
+                        <strong>Role</strong><p>:</p><span id="role"></span>
+                    </div> 
+                </div>
+                <div class="payslipsalarydetails">
+                    <table >
+                        <thead>
+                            <tr>
+                                <th colspan="2" >Employee Details</th>
+                                <th colspan="3">Salary</th>
+                                <th colspan="3">Deductions</th>
+                                <th>Additions</th>
+                            </tr>
+                            <tr >
+                                <th>Employee I'D</th>
+                                <th>Employee Name</th>
+                                <th>Basic Salary</th>
+                                <th>Working Days</th>
+                                <th>Gross Salary</th>
+                                <th>No of Leave</th>
+                                <th>Deducted Amount</th>
+                                <th>Total Salary</th>
+                                <th>Bonus Amount</th>
+                            </tr> 
+                        </thead>
+                        <tbody>
+                            <td><span id="empidtb"></span></td>
+                            <td><span id="nametb" style="text-transform: capitalize;"></span></td>
+                            <td>₹ <span id="basicsal"></span></td>
+                            <td><span id="workdays"></span> days</td>
+                            <td>₹ <span id="grosssal"></span></td>
+                            <td><span id="leaveday"></span> days</td>
+                            <td>₹ <span id="deduct"></span></td>
+                            <td>₹ <span id="totalsal"></span></td>
+                            <td>₹ <span id="addition"></span></td>
+                        </tbody>
+                    </table>
+                    <div class="totalearnings">Total Earnings: ₹ <span id="totalearn"></span></div>
+                </div>
+                <div class="btnarea" id="btnarea">
+                    <button class="btnn btn-save" onclick="savepayslip()">Save</button>
+                    <button class="btnn btn-download" id="download-button">Download</button>
+                    <button class="btnn btn-print" onclick="window.print()">Print</button>
+                    
+                </div>
+            </div>
+            
+        </main>
+
+    </div>
+    
+
+
+    <script>
+        
+    
+
+    const empnamee = localStorage.getItem("empname");
+    const emprolll = localStorage.getItem("emproll");
+    const empidd = localStorage.getItem("empid");
+    const payrolldatee = localStorage.getItem("payrolldate");
+    const basicsalaryy = localStorage.getItem("basicsalary");
+    const totalsalaryy = localStorage.getItem("totalsalary");
+    const grosssalaryy = localStorage.getItem("grosssalary");
+    const workingdayss = localStorage.getItem("workingdays");
+    const presentdayss = localStorage.getItem("presentdays");
+    const leavedayss = localStorage.getItem("leavedays");
+    const additionss = localStorage.getItem("additions");
+    const deductionss = localStorage.getItem("deductions");
+    const monthselectorr = localStorage.getItem("monthselector");
+    const totalearn = localStorage.getItem("totalearnings")
+
+    document.getElementById("role").textContent = emprolll;
+    document.getElementById("name").textContent = empnamee;
+    document.getElementById("empid").textContent = empidd;
+    document.getElementById("date").textContent = payrolldatee;
+    document.getElementById("month").textContent = monthselectorr;
+    document.getElementById("empidtb").textContent = empidd;
+    document.getElementById("nametb").textContent = empnamee;
+    document.getElementById("basicsal").textContent = basicsalaryy;
+    document.getElementById("workdays").textContent = workingdayss;
+    document.getElementById("grosssal").textContent = grosssalaryy;
+    document.getElementById("leaveday").textContent = leavedayss;
+    document.getElementById("deduct").textContent = deductionss;
+    document.getElementById("totalsal").textContent = totalsalaryy;
+    document.getElementById("addition").textContent = additionss;
+    document.getElementById("totalearn").textContent = totalearn;
+    
+    
+
+
+    
+    document.getElementById("download-button").addEventListener("click", function () {
+    
+        const gridElement = document.getElementById("contentarea");
+        const buttonsToHide = document.querySelectorAll(".btnn");
+        const empnamee = localStorage.getItem("empname");
+        const monthselectorr = localStorage.getItem("monthselector");
+    
+       gridElement.style.backgroundColor="white";
+        buttonsToHide.forEach((btn) => btn.style.display = "none");
+    
+
+    html2canvas(gridElement, { scale: 2 }).then(canvas => {
+         
+      const imgData = canvas.toDataURL("image/png");
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF();
+
+      const imgWidth = 200; 
+      const pageHeight = pdf.internal.pageSize.height;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+
+      pdf.addImage(imgData, 'PNG', 5, 5, imgWidth, imgHeight);
+
+
+      gridElement.style.backgroundColor="#feeba84a";
+      buttonsToHide.forEach(btn => btn.style.display = "inline-block"); 
+      pdf.save(empnamee+"_"+monthselectorr+"_payslip.pdf");
+
+    });
+  });
+    
+    </script>
+</body>
+</html>
