@@ -147,7 +147,7 @@
             localStorage.setItem('monthselector',monthselector.value); 
             localStorage.setItem('totalearnings',totalearning.value); 
             alert("Payroll saved successfully");
-            let response = confirm("To proceed payslip generation, click 'Ok', If you want to download this payroll details, click 'Cancel'");
+            let response = confirm("To proceed payslip generation, click 'Ok', \nIf you want to download this payroll details, click 'Cancel'");
             if(response){
                 window.location.href = "payslip.html";
             }  
