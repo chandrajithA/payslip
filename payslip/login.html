@@ -40,9 +40,11 @@
    const username = document.getElementById("loginuser").value;
    const password = document.getElementById("loginpassword").value;
     const logincred = [
-        {user: "admin" , pass:"admin"},
+        {user: "admin" , pass:"admin@123"},
         {user: "praveena" , pass:"praveena"},
-        {user: "chandru" , pass:"chandru"}
+        {user: "chandru" , pass:"chandru@123"},
+        {user: "praveena" , pass:"praveena@123"},
+        {user: "admin" , pass:"admin"}
     ]
 
     if(logincred.find(cred => username === cred.user && password === cred.pass)){
