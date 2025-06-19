@@ -6,7 +6,7 @@
     <script src="payslip.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="payslipstyle.css">
-    <title>Document</title>
+    <title>Login</title>
 </head>
 <body>
     <main>
@@ -26,7 +26,7 @@
                     <div class="loginpasswordarea">
                         <img src="image/Password.png" alt="icon symbol">
                         <input type="password" class="login-password" id="loginpassword" placeholder="Password" required>
-                        <img src="image/hide.png" alt="icon symbol">
+                        <img src="image/hide.png" alt="icon symbol" id="passviewbtn">
                     </div>
                     <a href="#">Forget Password?</a>
                     <button type="submit">Login</button>
@@ -35,38 +35,42 @@
         </div>
     </main>
     <script>
+        const passviewbtn = document.getElementById("passviewbtn");
+        const viewpassword = document.getElementById("loginpassword");
 
-    const passviewbtn = document.getElementById("passviewbtn");
-    const viewpassword = document.getElementById("loginpassword");
+        document.querySelector("form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const username = document.getElementById("loginuser").value;
+        const password = document.getElementById("loginpassword").value;
         
-    document.querySelector("form").addEventListener("submit", function(event) {
-    event.preventDefault();
-   const username = document.getElementById("loginuser").value;
-   const password = document.getElementById("loginpassword").value;
-    const logincred = [
-        {user: "admin" , pass:"admin@123"},
-        {user: "praveena" , pass:"praveena"},
-        {user: "chandru" , pass:"chandru@123"},
-        {user: "praveena" , pass:"praveena@123"},
-        {user: "admin" , pass:"admin"},
-        {user: "chandru" , pass:"chandru"}
-    ]
 
-    if(logincred.find(cred => username === cred.user && password === cred.pass)){
-          window.location.href = "overview.html";
-          localStorage.setItem('activeuser', username);
-          localStorage.setItem('sessionstatus','login')
-          document.getElementById("loginuser").value = "";
-          document.getElementById("loginpassword").value = "";
-          
-   }else{
-        alert("Invalid username or password");
-        document.getElementById("loginuser").value = "";
-        document.getElementById("loginpassword").value = "";
-   }
-});
+        const logincred = [
+            {user: "admin" , pass:"admin@123"},
+            {user: "praveena" , pass:"praveena"},
+            {user: "chandru" , pass:"chandru@123"},
+            {user: "praveena" , pass:"praveena@123"},
+            {user: "admin" , pass:"admin"},
+            {user: "chandru" , pass:"chandru"}
+        ]
 
-            passviewbtn.addEventListener('click',()=>{
+            if(logincred.find(cred => username === cred.user && password === cred.pass)){
+                window.location.href = "overview.html";
+                localStorage.setItem('activeuser', username);
+                localStorage.setItem('sessionstatus','login')
+                document.getElementById("loginuser").value = "";
+                document.getElementById("loginpassword").value = "";
+                
+            }else{
+                alert("Invalid username or password");
+                document.getElementById("loginuser").value = "";
+                document.getElementById("loginpassword").value = "";
+            }
+
+
+            
+    });
+
+              passviewbtn.addEventListener('click',()=>{
                  passviewbtn.classList.toggle("unhide");
                  
                  if(passviewbtn.classList.contains('unhide')){
@@ -75,7 +79,7 @@
                     viewpassword.type = "password";
                  }
             });
-        
+
     </script>
     
 </body>
