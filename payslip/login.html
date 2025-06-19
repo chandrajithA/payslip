@@ -35,7 +35,11 @@
         </div>
     </main>
     <script>
-        document.querySelector("form").addEventListener("submit", function(event) {
+
+    const passviewbtn = document.getElementById("passviewbtn");
+    const viewpassword = document.getElementById("loginpassword");
+        
+    document.querySelector("form").addEventListener("submit", function(event) {
     event.preventDefault();
    const username = document.getElementById("loginuser").value;
    const password = document.getElementById("loginpassword").value;
@@ -44,7 +48,8 @@
         {user: "praveena" , pass:"praveena"},
         {user: "chandru" , pass:"chandru@123"},
         {user: "praveena" , pass:"praveena@123"},
-        {user: "admin" , pass:"admin"}
+        {user: "admin" , pass:"admin"},
+        {user: "chandru" , pass:"chandru"}
     ]
 
     if(logincred.find(cred => username === cred.user && password === cred.pass)){
@@ -60,6 +65,17 @@
         document.getElementById("loginpassword").value = "";
    }
 });
+
+            passviewbtn.addEventListener('click',()=>{
+                 passviewbtn.classList.toggle("unhide");
+                 
+                 if(passviewbtn.classList.contains('unhide')){
+                    viewpassword.type = "text";
+                 }else{
+                    viewpassword.type = "password";
+                 }
+            });
+        
     </script>
     
 </body>
